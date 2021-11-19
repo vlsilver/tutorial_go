@@ -20,9 +20,21 @@ func Hello(name string) (string, error) {
 	}
 	// If a name was recieved return a value that embeds the name
 	//in a greeting message.
-	message := fmt.Sprintf(
-		randomFormat(), name)
+	message := fmt.Sprint(randomFormat(), name)
 	return message, nil
+}
+
+// HelloFailure returns a greetings for the names person.
+func HelloFailure(name string) (string, error) {
+	// If no name was given, return an error with a message
+	if name == "" {
+		return "", errors.New("empty name")
+	}
+	// If a name was recieved return a value that embeds the name
+	//in a greeting message.
+	message := fmt.Sprint(randomFormat())
+	return message, nil
+
 }
 
 // Hellos returns a map tha associate each of the named people
@@ -32,7 +44,7 @@ func Hellos(names []string) (map[string]string, error) {
 	messages := make(map[string]string)
 	// Loop through the received slice of names, calling
 	// the Hello function to get a message for each name.
-	for _, name :=  range names {
+	for _, name := range names {
 		message, err := Hello(name)
 		if err != nil {
 			return nil, err
